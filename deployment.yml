@@ -1,0 +1,211 @@
+# NGO Website Deployment Configuration
+# This YAML file contains all server configurations for the Hope & Harmony Foundation website
+
+# Global Configuration
+global:
+  project_name: "Hope & Harmony Foundation"
+  version: "1.0.0"
+  environment: "production"
+  contact_email: "kailashmargforhumanity@gmail.com"
+  phone: "+91 94311 07102"
+  location: "Ranchi, Jharkhand"
+
+# Server Configurations
+servers:
+  # Production Server (Vercel)
+  production:
+    name: "Production"
+    type: "vercel"
+    domain: "Kailashmargforhumanity.org"
+    aliases:
+      - "hopeful-fortress.vercel.app"
+      - "www.hopeful-fortress.vercel.app"
+    environment_variables:
+      NODE_ENV: "production"
+      API_URL: "https://Kailashmargforhumanity.org/api"
+    build_settings:
+      framework: "static"
+      build_command: "npm run build"
+      output_directory: "dist"
+    redirects:
+      - source: "/(.*)"
+        destination: "https://Kailashmargforhumanity.org/:1"
+        permanent: true
+    headers:
+      - path: "/*"
+        headers:
+          - "X-Frame-Options: DENY"
+          - "X-Content-Type-Options: nosniff"
+          - "Referrer-Policy: strict-origin-when-cross-origin"
+
+  # Staging Server
+  staging:
+    name: "Staging"
+    type: "vercel"
+    domain: "staging-hopeful-fortress.vercel.app"
+    environment_variables:
+      NODE_ENV: "staging"
+      API_URL: "https://staging-hopeful-fortress.vercel.app/api"
+    build_settings:
+      framework: "static"
+      build_command: "npm run build:staging"
+      output_directory: "dist"
+
+  # Development Server
+  development:
+    name: "Development"
+    type: "local"
+    domain: "localhost:3000"
+    environment_variables:
+      NODE_ENV: "development"
+      API_URL: "http://localhost:3000/api"
+    build_settings:
+      framework: "vite"
+      dev_command: "npm run dev"
+      port: 3000
+
+# API Configuration
+api:
+  keep_alive:
+    endpoint: "/api/keep_alive"
+    method: "GET"
+    response:
+      status: "ok"
+      service: "keep-alive"
+    timeout: 30
+    retry_attempts: 3
+
+# Database Configuration (if needed in future)
+database:
+  type: "none"  # Currently no database, but can be extended
+  connection_pool: 10
+  timeout: 5000
+
+# File Storage Configuration
+storage:
+  static_files:
+    - "index.html"
+    - "about.html"
+    - "updates.html"
+    - "gallery.html"
+    - "contact.html"
+    - "inspiration.html"
+    - "founder.html"
+    - "site.css"
+    - "logo.png"
+    - "father.jpg"
+    - "son.jpg"
+    - "hindi_logo.jpg"
+  public_directory: "public"
+  max_file_size: "10MB"
+
+# Security Configuration
+security:
+  cors:
+    allowed_origins:
+      - "https://Kailashmargforhumanity.org"
+      - "https://www.Kailashmargforhumanity.org"
+      - "https://hopeful-fortress.vercel.app"
+    allowed_methods:
+      - "GET"
+      - "POST"
+      - "OPTIONS"
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 100
+    burst_limit: 200
+
+# Monitoring Configuration
+monitoring:
+  health_check:
+    endpoint: "/api/keep_alive"
+    interval: 300  # 5 minutes
+    timeout: 10
+  uptime_monitoring:
+    enabled: true
+    check_interval: 60  # 1 minute
+  error_tracking:
+    enabled: true
+    log_level: "error"
+
+# Backup Configuration
+backup:
+  enabled: true
+  schedule: "daily"
+  retention_days: 30
+  include_files:
+    - "*.html"
+    - "*.css"
+    - "*.js"
+    - "*.json"
+    - "*.yml"
+    - "*.yaml"
+  exclude_files:
+    - "node_modules/**"
+    - "dist/**"
+    - "*.log"
+
+# Deployment Scripts
+deployment_scripts:
+  pre_deploy:
+    - "npm install"
+    - "npm run lint"
+    - "npm run test"
+  deploy:
+    - "npm run build"
+    - "vercel --prod"
+  post_deploy:
+    - "npm run health-check"
+    - "npm run notify-deployment"
+
+# Environment-specific Variables
+environments:
+  production:
+    variables:
+      GA_TRACKING_ID: "G-XXXXXXXXXX"  # Add your Google Analytics ID
+      CONTACT_EMAIL: "kailashmargforhumanity@gmail.com"
+      PHONE_NUMBER: "+91 94311 07102"
+  staging:
+    variables:
+      GA_TRACKING_ID: "G-XXXXXXXXXX"
+      CONTACT_EMAIL: "kailashmargforhumanity@gmail.com"
+      PHONE_NUMBER: "+91 94311 07102"
+  development:
+    variables:
+      GA_TRACKING_ID: ""
+      CONTACT_EMAIL: "kailashmargforhumanity@gmail.com"
+      PHONE_NUMBER: "+91 94311 07102"
+
+# Notification Configuration
+notifications:
+  deployment:
+    email:
+      enabled: true
+      recipients:
+        - "kailashmargforhumanity@gmail.com"
+    slack:
+      enabled: false
+      webhook_url: ""
+  errors:
+    email:
+      enabled: true
+      recipients:
+        - "kailashmargforhumanity@gmail.com"
+    slack:
+      enabled: false
+      webhook_url: ""
+
+# Performance Configuration
+performance:
+  caching:
+    static_assets: 86400  # 24 hours
+    api_responses: 300    # 5 minutes
+  compression:
+    enabled: true
+    gzip: true
+    brotli: true
+  cdn:
+    enabled: true
+    provider: "vercel"
+    cache_headers:
+      - "Cache-Control: public, max-age=86400"

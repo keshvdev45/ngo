@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "about.html", "use": "@vercel/static" },
+    { "src": "updates.html", "use": "@vercel/static" },
+    { "src": "gallery.html", "use": "@vercel/static" },
+    { "src": "contact.html", "use": "@vercel/static" },
+    { "src": "inspiration.html", "use": "@vercel/static" },
+    { "src": "founder.html", "use": "@vercel/static" },
+    { "src": "site.css", "use": "@vercel/static" },
+    { "src": "public/**", "use": "@vercel/static" },
+    { "src": "api/**/*.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/public/(.*)", "dest": "/public/$1" },
+    { "src": "/api/(.*)", "dest": "/api/$1" }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "hopeful-fortress.vercel.app" }
+      ],
+      "destination": "https://Kailashmargforhumanity.org/:1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        { "type": "host", "value": "www.hopeful-fortress.vercel.app" }
+      ],
+      "destination": "https://Kailashmargforhumanity.org/:1",
+      "permanent": true
+    }
+  ]
+}
+
