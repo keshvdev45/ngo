@@ -1,0 +1,150 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-01-27T10:00:00Z",
+  "environment": "production",
+  
+  "site": {
+    "name": "Fathers Vision",
+    "tagline": "Local hearts. Global hope. Real change.",
+    "description": "Fathers Vision is a grassroots NGO dedicated to empowering rural communities through sustainable development, education, healthcare, and livelihood programs across India.",
+    "defaultLanguage": "en",
+    "supportedLanguages": ["en", "hi", "bn", "te", "ta", "ml", "kn", "gu", "pa", "or"],
+    "domain": "fathers-vision.org",
+    "contact": {
+      "email": "contact@fathers-vision.org",
+      "phone": "+91-98765-43210",
+      "address": "123 Community Center, Rural Development Block, New Delhi - 110001, India"
+    }
+  },
+
+  "theme": {
+    "primary": {
+      "main": "#0B5FFF",
+      "light": "#4D8BFF",
+      "dark": "#0039CC"
+    },
+    "secondary": {
+      "main": "#FF6B6B",
+      "light": "#FF9B9B",
+      "dark": "#CC5555"
+    },
+    "accent": {
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "error": "#EF4444"
+    }
+  },
+
+  "hero": {
+    "variants": [
+      {
+        "id": "emotional",
+        "type": "emotional",
+        "headline": {
+          "primary": "Har bacche ko shiksha ka haq — aaj hi saath dein.",
+          "secondary": "Every child deserves education"
+        },
+        "subheadline": {
+          "primary": "Join local volunteers to provide education & health services to remote villages."
+        },
+        "callToAction": {
+          "primary": {
+            "text": "Donate Now",
+            "action": "/donate",
+            "variant": "button"
+          },
+          "secondary": {
+            "text": "Volunteer",
+            "action": "/volunteer",
+            "variant": "button"
+          }
+        },
+        "visual": {
+          "image": "/assets/hero-emotional.jpg",
+          "alt": "Children studying in a rural classroom with volunteers"
+        }
+      }
+    ],
+    "defaultVariant": "emotional",
+    "autoRotate": true,
+    "rotationInterval": 8000
+  },
+
+  "donation": {
+    "currency": "INR",
+    "supportedCurrencies": ["INR", "USD", "EUR", "GBP"],
+    "tiers": [
+      {
+        "id": "basic",
+        "name": "Basic Support",
+        "amount": 500,
+        "currency": "INR",
+        "description": "School supplies for 5 children",
+        "impact": "Provides notebooks, pens, and basic learning materials",
+        "recurring": {
+          "enabled": false,
+          "intervals": ["monthly"],
+          "default": "monthly"
+        }
+      },
+      {
+        "id": "standard",
+        "name": "Standard Support",
+        "amount": 2000,
+        "currency": "INR",
+        "description": "1 month midday meal for a class",
+        "impact": "Ensures 30 children receive nutritious meals daily",
+        "recurring": {
+          "enabled": true,
+          "intervals": ["monthly", "quarterly", "yearly"],
+          "default": "monthly"
+        },
+        "popular": true
+      }
+    ],
+    "paymentGateways": [
+      {
+        "provider": "stripe",
+        "enabled": true,
+        "testMode": false,
+        "currencies": ["INR", "USD", "EUR", "GBP"],
+        "minimumAmount": 100,
+        "maximumAmount": 1000000
+      }
+    ]
+  },
+
+  "programs": [
+    {
+      "id": "education",
+      "slug": "education-initiative",
+      "title": "Education Initiative",
+      "summary": "Comprehensive education programs for rural children",
+      "description": "Our Education Initiative focuses on providing quality education to children in remote villages through after-school programs, digital learning centers, and teacher training.",
+      "category": "education",
+      "status": "active",
+      "priority": "high"
+    }
+  ],
+
+  "security": {
+    "level": "enterprise",
+    "csp": {
+      "enabled": true,
+      "reportOnly": false
+    },
+    "headers": {
+      "hsts": true,
+      "referrerPolicy": "strict-origin-when-cross-origin"
+    }
+  },
+
+  "features": {
+    "blog": true,
+    "newsletter": true,
+    "volunteerSignup": true,
+    "impactTracking": true,
+    "multiLanguage": true,
+    "accessibility": true
+  }
+}
